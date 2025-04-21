@@ -1,22 +1,35 @@
 #Testcases
 # 1. Input: “”, Output: 0
 # 2. Input: “1”, Output: 1
-# 3. Input: “1,5”, Output: 6
-##Allow the add method to handle any amount of numbers.
-
-###Allow the add method to handle new lines between numbers (instead of commas). ("1\n2,3" should return 6)
+# 3. Input: “1,15”, Output: 16
+# 3. Input: “1,15,20”, Output: 36
 
 p "Enter string with numbers  "
 
 num_string=gets
-#p num_string.gsub(/\D/, '')
-num=0
+num=""
+prev=""
+current=""
+final_numbers=[] # to store all positive numbers in the string
+
+#iteration over the each character of string
+
 num_string.chars.each  do |c|
   current=c
  if current.match(/\d/)
-   num=num+c.to_i
+  if prev.match(/\d/)     # multidigit number is taken care
+   num=num+current  #append digits
+ else
+   num=current # take a new number first digit
  end
+ else
+   if num!=""
+     final_numbers<<  num.to_i
+  end
+   num="" #reset to blank when character is found
+ end
+  prev=current
 end
-p num
+puts  "Sum " + final_numbers.sum.to_s  #ruby >2.4
 
 
